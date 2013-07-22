@@ -62,6 +62,10 @@ class Field_asset extends Public_Controller {
 		{
 			$this->_js($file);
 		}
+		elseif ($method == 'img')
+		{
+			$this->_img($file);
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -98,6 +102,28 @@ class Field_asset extends Public_Controller {
     	header("Content-Type: text/javascript");
     	
     	$file = $this->field_type->ft_path.'js/'.$file;
+    	
+   	 	if ( ! is_file($file)) return null;
+   	 	
+		echo read_file($file);   	 	
+    }
+  
+  	// --------------------------------------------------------------------------
+
+    /**
+     * Pull Image
+     *
+     * @access	private
+     * @param	string - image file name
+     * @return	void
+     */
+    private function _img($file)
+    {
+
+    	$mime = get_mime_by_extension($file);
+    	header("Content-Type: ".$mime);
+    	
+    	$file = $this->field_type->ft_path.'img/'.$file;
     	
    	 	if ( ! is_file($file)) return null;
    	 	
